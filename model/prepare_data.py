@@ -1,12 +1,10 @@
 import os
-
 import cv2
 import numpy as np
-
 from utils import get_face_landmarks
 
-
-data_dir = './data'
+# data directory
+data_dir = '../data'
 
 output = []
 for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
@@ -14,10 +12,10 @@ for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
         image_path = os.path.join(data_dir, emotion, image_path_)
 
         image = cv2.imread(image_path)
-
         face_landmarks = get_face_landmarks(image)
-
-        if len(face_landmarks) == 1404:
+        # print(len(face_landmarks))
+        # the landmarks number for the face 
+        if len(face_landmarks) == 1404: 
             face_landmarks.append(int(emotion_indx))
             output.append(face_landmarks)
 
