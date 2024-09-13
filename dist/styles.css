@@ -1,0 +1,225 @@
+/* General Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+/* Top Left: Project Name */
+.project-name {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff;
+    z-index: 2;
+}
+
+/* Top Right: Sign-Up Button */
+.signup-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 3;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.signup-btn:hover {
+    background-color: #ff7f50;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: fadeIn 2s ease;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    animation: zoomIn 2s ease-out;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero-tagline {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: fadeInUp 1.5s ease;
+}
+
+.hero-description {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 30px;
+    animation: fadeInUp 2s ease;
+}
+
+.hero-btn {
+    background-color: #ff4500;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: bounceIn 2s infinite;
+}
+
+.hero-btn:hover {
+    background-color: #ff6347;
+    transform: scale(1.05);
+}
+
+/* Interactive Section */
+.interactive-section {
+    padding: 80px 60px;
+    text-align: center;
+    background-color: #f4f4f4;
+    animation: fadeInUp 2s ease;
+    margin-top: 30px;
+}
+.camera-btn{
+    margin-top: 330px;
+}
+.camera-btn i {
+    margin-right: 10px;
+    margin-top: 30px;
+}
+
+.btn {
+    background-color: #ff4500;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    animation: bounceIn 2s infinite;
+}
+
+.btn:hover {
+    background-color: #ff6347;
+}
+
+/* About Section */
+.about-section {
+    background-color: #fff;
+    padding: 80px 60px;
+    color: #333;
+    animation: fadeIn 2s ease;
+    text-align: center;
+}
+
+.about-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ff4500;
+}
+
+.about-section p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Merriweather', serif;
+}
+
+/* Footer */
+footer {
+    background-color: #282c35;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    animation: fadeInUp 2s ease;
+}
+
+.footer-links a {
+    margin: 0 15px;
+    color: #ff6347;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
