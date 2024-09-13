@@ -1,11 +1,8 @@
 import pickle
-
 import cv2
-
 from utils import get_face_landmarks
 
-
-emotions = ['HAPPY', 'SAD', 'SURPRISED']
+emotions = ['HAPPY', 'SAD', 'SURPRISED',"SHOCK"]
 
 with open('./model', 'rb') as f:
     model = pickle.load(f)

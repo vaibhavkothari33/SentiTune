@@ -4,7 +4,11 @@ import numpy as np
 from utils import get_face_landmarks
 
 # data directory
-data_dir = '../data'
+data_dir = './data'
+
+# print("Current Working Directory:", os.getcwd())
+# print(os.path.abspath(data_dir))
+
 
 output = []
 for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
