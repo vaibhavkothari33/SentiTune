@@ -1,122 +1,58 @@
-# import os
-# import cv2
-# import numpy as np
-# from utils import get_face_landmarks
 
-# # data directory
-# data_dir = './data'
-
-# print("Current Working Directory:", os.getcwd())
-# print(os.path.abspath(data_dir))
-
-
-# output = []
-
-# output = []
-# for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
-#     for image_path_ in os.listdir(os.path.join(data_dir, emotion)):
-#         image_path = os.path.join(data_dir, emotion, image_path_)
-
-#         image = cv2.imread(image_path)
-#         face_landmarks = get_face_landmarks(image)
-
-#         if len(face_landmarks) == 1404: 
-#             face_landmarks.append(int(emotion_indx))
-#             output.append(face_landmarks)
-
-# np.savetxt('data.txt', np.asarray(output))
-
-# import os
-# import cv2
-# import numpy as np
-# from concurrent.futures import ThreadPoolExecutor, as_completed
-# from utils import get_face_landmarks
-
-# # Data directory
-# data_dir = './data'
-
-# print("Current Working Directory:", os.getcwd())
-# print(os.path.abspath(data_dir))
-
-# output = []
-
-# # Function to process each image
-# def process_image(image_path, emotion_indx):
-#     image = cv2.imread(image_path)
-#     face_landmarks = get_face_landmarks(image)
-
-#     if len(face_landmarks) == 1404:
-#         face_landmarks.append(int(emotion_indx))
-#         return face_landmarks
-#     return None
-
-# # Limit the number of threads
-# max_threads = 4  # Adjust this number based on system capacity
-
-# # Using ThreadPoolExecutor to process images with limited threads
-# with ThreadPoolExecutor(max_workers=max_threads) as executor:
-#     future_to_image = {}
-    
-#     for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
-#         emotion_dir = os.path.join(data_dir, emotion)
-        
-#         # Submit image processing tasks to the executor
-#         for image_path_ in os.listdir(emotion_dir):
-#             image_path = os.path.join(emotion_dir, image_path_)
-#             future = executor.submit(process_image, image_path, emotion_indx)
-#             future_to_image[future] = image_path
-    
-#     # Collecting results as they complete
-#     for future in as_completed(future_to_image):
-#         result = future.result()
-#         if result is not None:
-#             output.append(result)
-
-# # Saving the output
-# np.savetxt('data.txt', np.asarray(output))
 import os
 import cv2
 import numpy as np
 from utils import get_face_landmarks
-from math import ceil
+import concurrent.futures
 
-# Data directory
+# data directory
 data_dir = './data'
 
 print("Current Working Directory:", os.getcwd())
 print(os.path.abspath(data_dir))
 
-output = []
-emotions = sorted(os.listdir(data_dir))
+# Limit the number of threads to avoid excessive thread creation
+os.environ["OMP_NUM_THREADS"] = "4"
 
-# Split data into 3 parts
-num_parts = 3
-num_emotions = len(emotions)
-part_size = ceil(num_emotions / num_parts)
+# Function to process each image and extract face landmarks
+def process_image(image_path, emotion_indx):
+    print("Processing", image_path)
+    image = cv2.imread(image_path)
+    face_landmarks = get_face_landmarks(image)
+    
+    # Check if the face_landmarks length is valid (1404 as in the original code)
+    if len(face_landmarks) == 1404:
+        face_landmarks.append(int(emotion_indx))
+        return face_landmarks
+    return None
 
-# Function to process each emotion's images
-def process_emotions(start_idx, end_idx, part_num):
+# Get list of all images to process
+all_images = []
+for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
+    emotion_dir = os.path.join(data_dir, emotion)
+    for image_file in os.listdir(emotion_dir):
+        image_path = os.path.join(emotion_dir, image_file)
+        all_images.append((image_path, emotion_indx))
+
+# Split the list into three smaller batches
+split_size = len(all_images) // 3
+batches = [all_images[:split_size], all_images[split_size:2*split_size], all_images[2*split_size:]]
+
+# Function to process a batch of images and save to a text file
+def process_batch(batch, output_file):
     output = []
-    for emotion_indx in range(start_idx, end_idx):
-        emotion = emotions[emotion_indx]
-        emotion_dir = os.path.join(data_dir, emotion)
-        
-        for image_path_ in os.listdir(emotion_dir):
-            image_path = os.path.join(emotion_dir, image_path_)
-            image = cv2.imread(image_path)
-            face_landmarks = get_face_landmarks(image)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+        results = executor.map(lambda x: process_image(x[0], x[1]), batch)
+        for result in results:
+            if result:
+                output.append(result)
+    
+    # Save the batch to a text file
+    np.savetxt(output_file, np.asarray(output))
 
-            if len(face_landmarks) == 1404:
-                face_landmarks.append(int(emotion_indx))
-                output.append(face_landmarks)
+# Process each batch and save to separate files
+process_batch(batches[0], 'data_part1.txt')
+process_batch(batches[1], 'data_part2.txt')
+process_batch(batches[2], 'data_part3.txt')
 
-    # Save to a separate file
-    filename = f'data_part{part_num}.txt'
-    np.savetxt(filename, np.asarray(output))
-    print(f"Data saved to {filename}")
-
-# Process data in 3 parts
-for part_num in range(num_parts):
-    start_idx = part_num * part_size
-    end_idx = min(start_idx + part_size, num_emotions)
-    process_emotions(start_idx, end_idx, part_num + 1)
+print("Data saved in 3 files: data_part1.txt, data_part2.txt, data_part3.txt")

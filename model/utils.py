@@ -1,16 +1,16 @@
 import cv2
 import mediapipe as mp
 
-def get_face_landmarks(image, draw=False, static_image_mode=True):
+face_mesh = mp.solutions.face_mesh.FaceMesh(
+    static_image_mode=True,
+    max_num_faces=1,
+    min_detection_confidence=0.5
+)
+
+def get_face_landmarks(image, draw=False):
 
     # Read the input image
     image_input_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-    face_mesh = mp.solutions.face_mesh.FaceMesh(
-        static_image_mode=static_image_mode,
-        max_num_faces=1,
-        min_detection_confidence=0.5
-    )
 
     image_rows, image_cols, _ = image.shape
     results = face_mesh.process(image_input_rgb)
