@@ -34,24 +34,22 @@ for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
         all_images.append((image_path, emotion_indx))
 
 # Split the list into three smaller batches
-split_size = len(all_images) // 3
-batches = [all_images[:split_size], all_images[split_size:2*split_size], all_images[2*split_size:]]
+# split_size = len(all_images) // 3
+# batches = [all_images[:split_size], all_images[split_size:2*split_size], all_images[2*split_size:]]
 
 # Function to process a batch of images and save to a text file
 def process_batch(batch, output_file):
     output = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
-        results = executor.map(lambda x: process_image(x[0], x[1]), batch)
-        for result in results:
-            if result:
-                output.append(result)
+    for x in batch:
+        result = process_image(x[0], x[1])
+        if result:
+            output.append(result)
     
     # Save the batch to a text file
     np.savetxt(output_file, np.asarray(output))
 
 # Process each batch and save to separate files
-process_batch(batches[0], 'data_part1.txt')
-process_batch(batches[1], 'data_part2.txt')
-process_batch(batches[2], 'data_part3.txt')
+process_batch(all_images, 'data_part.txt')
 
 print("Data saved in 3 files: data_part1.txt, data_part2.txt, data_part3.txt")
+

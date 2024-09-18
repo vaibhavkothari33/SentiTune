@@ -4,7 +4,7 @@ import mediapipe as mp
 face_mesh = mp.solutions.face_mesh.FaceMesh(
     static_image_mode=True,
     max_num_faces=1,
-    min_detection_confidence=0.5
+    min_detection_confidence=0.7
 )
 
 def get_face_landmarks(image, draw=False):
