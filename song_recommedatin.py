@@ -19,7 +19,7 @@ def get_advanced_recommendations(mood):
         # Fetch recommendations using genres and artists associated with Hindi music
         recommendations = sp.recommendations(seed_genres=features['genres'],
         seed_artists=get_artist_ids(features['artists']),
-        limit=10,
+        limit=3,
         target_valence=features['valence'],
         target_energy=features['energy'],
         target_danceability=features['danceability'])
