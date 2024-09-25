@@ -1,12 +1,10 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-
 # Authenticate with Spotify
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='6dc4020dac1a4f6b9fd42333b41de3d9',client_secret='ba0287b7b1d2484084793af64ae0fe88'))
 
-
 mood_features = {
-    'happy': {'valence': 0.9, 'energy': 0.8, 'danceability': 0.9, 'genres': ['bollywood', 'indian pop'], 'artists': ['Arijit Singh', 'Shreya Ghoshal']},
+    'happy': {'valence': 0.8, 'energy': 0.8, 'danceability': 0.9, 'genres': ['bollywood', 'indian pop'], 'artists': ['Arijit Singh', 'Shreya Ghoshal']},
     'sad': {'valence': 0.2, 'energy': 0.3, 'danceability': 0.3, 'genres': ['hindi', 'romantic'], 'artists': ['Arijit Singh', 'Lata Mangeshkar']},
     'relaxed': {'valence': 0.6, 'energy': 0.4, 'danceability': 0.5, 'genres': ['chill', 'indian classical'], 'artists': ['Hariharan', 'Shankar Mahadevan']},
     'angry': {'valence': 0.3, 'energy': 0.9, 'danceability': 0.8, 'genres': ['bollywood', 'indian rock'], 'artists': ['Neha Kakkar', 'Badshah']}
@@ -24,7 +22,7 @@ def get_advanced_recommendations(mood):
         target_energy=features['energy'],
         target_danceability=features['danceability'])
         
-        print(f"\nSongs recommended for the mood: {mood.capitalize()} (Hindi Songs)")
+        print(f"\nSongs recommended for the mood: {mood.capitalize()} (Hindi Songs)\n")
         for track in recommendations['tracks']:
             track_name = track['name']
             artist_name = track['artists'][0]['name']
