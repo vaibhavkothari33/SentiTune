@@ -23,7 +23,7 @@ The system maps each mood to a set of **musical features**:
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/vaibhavkothari33/speech_to_handsign.git
+    git clone https://github.com/vaibhavkothari33/SentiTune.git
     cd hindi-song-recommender
     ```
 
@@ -64,7 +64,7 @@ The system maps each mood to a set of **musical features**:
 
     ```
     Songs recommended for the mood: Happy (Hindi Songs)
-    
+
     Tum Hi Ho by Arijit Singh - Listen here: https://open.spotify.com/track/1cHZdj1HjIPovrXKHY9LwA
 
     Pal by Shreya Ghoshal - Listen here: https://open.spotify.com/track/2JdLR91NnBxMSUosfUB1rC
