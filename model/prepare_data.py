@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 from utils import get_face_landmarks
-import concurrent.futures
+# import concurrent.futures
 
 # data directory
 data_dir = './data'
@@ -33,9 +33,6 @@ for emotion_indx, emotion in enumerate(sorted(os.listdir(data_dir))):
         image_path = os.path.join(emotion_dir, image_file)
         all_images.append((image_path, emotion_indx))
 
-# Split the list into three smaller batches
-# split_size = len(all_images) // 3
-# batches = [all_images[:split_size], all_images[split_size:2*split_size], all_images[2*split_size:]]
 
 # Function to process a batch of images and save to a text file
 def process_batch(batch, output_file):
