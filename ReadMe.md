@@ -1,82 +1,83 @@
-# Hindi Song Recommender based on Mood 🎵
+# SentiTune 🎶
 
-This Python project recommends **Hindi songs** from Spotify based on the user's mood. It utilizes the **Spotify Web API** and allows users to input their mood manually, then suggests songs accordingly. Each song recommendation includes a **Spotify link** for direct listening.
+SentiTune is an intelligent music recommendation web app designed to suggest songs based on the user's mood. Using a combination of AI and Spotify's vast music catalog, SentiTune detects emotions and serves up playlists that match each user's current vibe.
 
-## Features
+## Objective
 
-- Advanced **mood detection**: The script suggests songs based on four predefined moods: `happy`, `sad`, `relaxed`, and `angry`.
-- Focus on **Hindi music**: The recommendations prioritize Hindi genres such as Bollywood, Indian pop, and classical, and feature well-known Indian artists.
-- Songs come with **direct Spotify links** so users can listen with just one click.
-- Uses Spotify's **valence**, **energy**, and **danceability** parameters to match songs to moods accurately.
+The main goal of SentiTune is to recommend songs based on the detected mood of the user, making music discovery more personalized and dynamic.
 
-## Mood to Feature Mapping
+## Tech Stack
 
-The system maps each mood to a set of **musical features**:
+- **Languages**:
+  - **Python** for the AI model
+  - **HTML**, **CSS**, and **JavaScript** for the frontend
+- **Backend**:
+  - **FastAPI** with **Uvicorn** as the ASGI server
+- **APIs**:
+  - **Spotify API** for recommending songs based on mood
+- **Additional Libraries**:
+  - `scikit-learn`, `numpy`, `pandas` for AI model processing
+  - `dotenv` for secure API key management
 
-- **Happy**: Songs with high valence, high energy, and danceability (Genres: Bollywood, Indian Pop).
-- **Sad**: Songs with low valence, low energy, and slower pace (Genres: Hindi, Romantic).
-- **Relaxed**: Calm and soothing songs with mid valence and lower energy (Genres: Chill, Indian Classical).
-- **Angry**: Songs with high energy and intensity (Genres: Bollywood, Indian Rock).
+## Getting Started
 
-## Installation
+### Clone the Repository
 
-1. **Clone the repository**:
+To run SentiTune on your local machine, start by cloning the repository:
 
-    ```bash
-    git clone https://github.com/vaibhavkothari33/SentiTune.git
-    cd hindi-song-recommender
-    ```
+```bash
+git clone https://github.com/vaibhavkothari33/SentiTune.git
+```
 
-2. **Install the required Python libraries**:
+## Install Requirements
 
-    You need to install `spotipy`, a lightweight Python library for the Spotify Web API.
+Navigate to the project directory and install the dependencies for the backend:
 
-    ```bash
-    pip install spotipy
-    ```
+```bash
+pip install -r requirements.txt
+```
 
-3. **Set up your Spotify Developer Account**:
+Frontend: Open index.html in your browser to load the interface.
 
-   - Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
-   - Create an app to get your **Client ID** and **Client Secret**.
-   - Update the script with your credentials in the following lines:
+## AI Model
 
-    ```python
-    sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='your_client_id',
-                                                               client_secret='your_client_secret'))
-    ```
+Our AI model currently achieves **89% accuracy** in mood prediction. It supports the following mood categories:
 
-## Usage
+- **Happy**
+- **Sad**
+- **Energetic**
+- **Angry**
+- **Calm**
 
-1. **Run the script**:
+## Future Goals
 
-    ```bash
-    python song_recommender.py
-    ```
+- **Improve Accuracy**: Enhance the accuracy of mood prediction through additional training data and refined model parameters.
+- **Expanded Mood Categories**: Add support for a wider variety of moods.
+- **Additional Features**:
+  - **Customizable Playlists**: Allow users to create and save playlists based on specific moods.
+  - **User Feedback**: Integrate a feedback loop so users can rate song recommendations, improving the accuracy of future suggestions.
+  - **Mood History**: Track past moods and recommendations for personalized insights.
 
-2. **Enter your mood** when prompted:
+## License
 
-    ```bash
-    Enter your mood (happy, sad, relaxed, angry): happy
-    ```
+This project is licensed under the MIT License.
 
-3. The script will recommend songs and provide clickable Spotify links for each recommendation:
+## Contributing
 
-    ```
-    Songs recommended for the mood: Happy (Hindi Songs)
+Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
 
-    Tum Hi Ho by Arijit Singh - Listen here: https://open.spotify.com/track/1cHZdj1HjIPovrXKHY9LwA
+## Team Name : LeetRankers
 
-    Pal by Shreya Ghoshal - Listen here: https://open.spotify.com/track/2JdLR91NnBxMSUosfUB1rC
-    ```
+### Vaibhav Kothari E23CSEU1451
 
-## Advanced Configuration
+E23CSEU1451@bennett.edu.in
 
-### Mood Mapping
+### Srishti Singh E23CSEU1449
 
-You can customize the `mood_features` dictionary to include more moods or change the mood-to-feature mapping.
+E23CSEU1449@bennett.edu.in
 
-For example, to add a new mood like `excited`, you can add this to the dictionary:
+### Pranjal Srivastava E23CSEU1443
 
-```python
-'excited': {'valence': 0.9, 'energy': 0.9, 'danceability': 0.95, 'genres': ['bollywood', 'party'], 'artists': ['Neha Kakkar', 'Badshah']}
+E23CSEU1443@bennett.edu.in
+
+Happy tuning! 🎧
