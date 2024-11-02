@@ -10,6 +10,7 @@ The main goal of SentiTune is to recommend songs based on the detected mood of t
 ![Confusion Matrix](model/Images/confusionMatrix.png)
 ![Happy demo](model/Images/happy.png)
 ![Angry Demo](model/Images/angry.png)
+![Angry Demo](model/Images/fearful.png)
 ![No face](model/Images/noface.png)
 ## Tech Stack
 
