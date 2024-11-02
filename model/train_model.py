@@ -14,7 +14,7 @@ X = data[:, :-1]  # Features are all columns except the last one
 y = data[:, -1]   # Labels are the last column
 
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=42,shuffle=True)
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.01,random_state=42,shuffle=True)
 
 rf_classifier = RandomForestClassifier()
 rf_classifier.fit(X_train, y_train)

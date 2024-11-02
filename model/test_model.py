@@ -7,7 +7,7 @@ emotions = ['ANGRY', 'DISGUSTED', 'FEARFUL', 'HAPPY', 'NEUTRAL']
 
 
 # Load the trained model from the file
-with open('./modelOne1.pkl', 'rb') as f:
+with open('./modelOne3.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Initialize the webcam
