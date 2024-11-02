@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 from utils import get_face_landmarks
 # import concurrent.futures
-
 # data directory
 data_dir = './data'
 

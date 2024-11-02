@@ -5,6 +5,7 @@ from utils import get_face_landmarks
 # Emotion labels
 emotions = ['ANGRY', 'DISGUSTED', 'FEARFUL', 'HAPPY', 'NEUTRAL']
 
+
 # Load the trained model from the file
 with open('./modelOne1.pkl', 'rb') as f:
     model = pickle.load(f)

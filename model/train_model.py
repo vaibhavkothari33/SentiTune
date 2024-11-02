@@ -5,6 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 # Load data from the text file
 
+
     
 data_file = "./data_part.txt"
 data = np.loadtxt(data_file)

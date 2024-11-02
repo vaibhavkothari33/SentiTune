@@ -7,6 +7,7 @@ face_mesh = mp.solutions.face_mesh.FaceMesh(
     min_detection_confidence=0.7
 )
 
+
 def get_face_landmarks(image, draw=False):
 
     # Read the input image

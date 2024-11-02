@@ -3,6 +3,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 # Authenticate with Spotify
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='6dc4020dac1a4f6b9fd42333b41de3d9',client_secret='ba0287b7b1d2484084793af64ae0fe88'))
 
+
 mood_features = {
     'happy': {'valence': 0.8, 'energy': 0.8, 'danceability': 0.9, 'genres': ['bollywood', 'indian pop'], 'artists': ['Arijit Singh', 'Shreya Ghoshal']},
     'sad': {'valence': 0.2, 'energy': 0.3, 'danceability': 0.3, 'genres': ['hindi', 'romantic'], 'artists': ['Arijit Singh', 'Lata Mangeshkar']},
