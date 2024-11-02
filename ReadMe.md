@@ -6,6 +6,11 @@ SentiTune is an intelligent music recommendation web app designed to suggest son
 
 The main goal of SentiTune is to recommend songs based on the detected mood of the user, making music discovery more personalized and dynamic.
 
+
+![Confusion Matrix](model/Images/confusionMatrix.png)
+![Happy demo](model/Images/happy.png)
+![Angry Demo](model/Images/angry.png)
+![No face](model/Images/noface.png)
 ## Tech Stack
 
 - **Languages**:
