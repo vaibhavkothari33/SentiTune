@@ -22,10 +22,10 @@ app.add_middleware(
 emotions = ['ANGRY', 'SAD', 'HAPPY', 'CALM']
 
 # Load the scaler and trained model
-with open('./scaler.pkl', 'rb') as f:
+with open('./scaler1.pkl', 'rb') as f:
     scaler = pickle.load(f)
 
-with open('./model_tuned.pkl', 'rb') as f:
+with open('./model_tuned1.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Initialize video capture using OpenCV (webcam)

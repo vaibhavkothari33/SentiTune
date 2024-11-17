@@ -568,7 +568,7 @@
                 const token = await getSpotifyAccessToken(clientId, clientSecret);
 
                 // Use "Bollywood" as a filter along with the mood
-                const searchQuery = encodeURIComponent(`${mood} Bollywood`);
+                const searchQuery = encodeURIComponent(`${mood} Hindi Bollywood`);
                 const url = `https://api.spotify.com/v1/search?q=${searchQuery}&type=track&limit=5`;
 
                 const response = await fetch(url, {
