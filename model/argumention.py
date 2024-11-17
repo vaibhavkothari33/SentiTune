@@ -5,9 +5,23 @@ import cv2
 import numpy as np
 
 def rotate_image(image):
-    """Randomly rotate the image by a random angle."""
-    angle = random.uniform(-30, 30)  # Random angle between -30 to 30 degrees
-    return image.rotate(angle)
+    """Randomly rotate the image within a small range, ensuring it stays portrait."""
+    # Get the aspect ratio of the image
+    width, height = image.size
+    aspect_ratio = width / height
+    
+    # Only rotate between -30 and 30 degrees to avoid drastic changes in orientation
+    angle = random.uniform(-30, 30)
+    
+    # Rotate the image
+    rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=True)
+    
+    # Ensure the rotated image retains the same portrait aspect ratio
+    rotated_width, rotated_height = rotated_image.size
+    if rotated_width > rotated_height:
+        rotated_image = rotated_image.transpose(Image.ROTATE_90)
+    
+    return rotated_image
 
 def flip_image(image):
     """Randomly flip the image horizontally or vertically."""
@@ -80,7 +94,7 @@ def augment_image(image_path, output_dir):
         zoom_image(image),
         crop_image(image),
         color_jitter(image),
-        translate_image(image)
+        # translate_image(image)
     ]
     
     # Save augmented images
@@ -112,6 +126,6 @@ def process_directory(input_dir, output_dir):
                     augment_image(image_path, output_subfolder)
 
 # Example usage
-input_directory = "./Newdata"  # Directory with angry, sad, happy, calm subfolders
+input_directory = "AugmentedData"  # Directory with angry, sad, happy, calm subfolders
 output_directory = "AugmentedData"  # Directory to save augmented images
 process_directory(input_directory, output_directory)
