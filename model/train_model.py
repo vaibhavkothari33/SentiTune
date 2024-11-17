@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 
 
     
-data_file = "./data_part.txt"
+data_file = "./data1_part.txt"
 data = np.loadtxt(data_file)
 # Split data into features (X) and labels (y)
 X = data[:, :-1]  # Features are all columns except the last one
@@ -27,7 +27,7 @@ print(f"Accuracy: {accuracy * 100:.2f}%")
 print(confusion_matrix(y_test, y_pred))
 
 # Save the trained model to a file
-with open('./modelOne3.pkl', 'wb') as f:
+with open('./modelOne31.pkl', 'wb') as f:
     pickle.dump(rf_classifier, f)
 
 print("Model saved as modelOne.pkl")

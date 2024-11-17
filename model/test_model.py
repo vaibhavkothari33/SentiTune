@@ -3,11 +3,11 @@ import cv2
 from utils import get_face_landmarks
 
 # Emotion labels
-emotions = ['ANGRY', 'DISGUSTED', 'FEARFUL', 'HAPPY', 'NEUTRAL']
+emotions = ['ANGRY', 'SAD',  'HAPPY', 'CALM']
 
 
 # Load the trained model from the file
-with open('./modelOne3.pkl', 'rb') as f:
+with open('./modelOne31.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Initialize the webcam

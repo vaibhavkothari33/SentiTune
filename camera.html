@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection with Spotify</title>
+    <style>
+        #video-feed {
+            width: 640px;
+            height: 480px;
+            border: 1px solid #ccc;
+        }
+
+        #mood-input {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        #camera-toggle,
+        #search-button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #song-list {
+            margin-top: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        #song-list li {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Real-time Emotion Detection</h1>
+    <canvas id="video-feed"></canvas>
+    <input type="text" id="mood-input" placeholder="Detected mood will appear here" readonly>
+    <button id="camera-toggle">Toggle Camera</button>
+    <button id="search-button">Search Songs</button>
+
+    <h2>Recommended Songs</h2>
+    <ul id="song-list"></ul>
+
+    <script>
+        const canvas = document.getElementById("video-feed");
+        const moodInput = document.getElementById("mood-input");
+        const cameraToggle = document.getElementById("camera-toggle");
+        const searchButton = document.getElementById("search-button");
+        const songList = document.getElementById("song-list");
+        const ctx = canvas.getContext("2d");
+
+        const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+        let isCameraOn = false;
+
+        // WebSocket connection
+        ws.onopen = () => {
+            console.log("WebSocket connected");
+        };
+
+        ws.onmessage = (event) => {
+            if (typeof event.data === "string") {
+                // Update mood input box
+                moodInput.value = event.data;
+            } else {
+                // Render video feed
+                const img = new Image();
+                img.src = URL.createObjectURL(event.data);
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    URL.revokeObjectURL(img.src);
+                };
+            }
+        };
+
+        ws.onclose = () => {
+            console.log("WebSocket disconnected");
+        };
+
+        cameraToggle.addEventListener("click", () => {
+            if (isCameraOn) {
+                ws.close();
+                cameraToggle.textContent = "Start Camera";
+            } else {
+                location.reload(); // Restart the connection
+            }
+            isCameraOn = !isCameraOn;
+        });
+
+        // Function to get Spotify Access Token
+        async function getSpotifyAccessToken(clientId, clientSecret) {
+            const url = "https://accounts.spotify.com/api/token";
+            const credentials = btoa(`${clientId}:${clientSecret}`);
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Authorization: `Basic ${credentials}`,
+                },
+                body: "grant_type=client_credentials",
+            });
+
+            const data = await response.json();
+            return data.access_token;
+        }
+
+        // Function to fetch Bollywood songs based on mood
+        async function fetchSongs(mood) {
+            const clientId = 'ec966cbb22614e29995e738d2f71fcfd';
+            const clientSecret = '948c567f0bdc4a0d95c7c708322018ff';
+
+            try {
+                const token = await getSpotifyAccessToken(clientId, clientSecret);
+
+                // Use "Bollywood" as a filter along with the mood
+                const searchQuery = encodeURIComponent(`${mood} Bollywood`);
+                const url = `https://api.spotify.com/v1/search?q=${searchQuery}&type=track&limit=5`;
+
+                const response = await fetch(url, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const data = await response.json();
+
+                if (data.tracks && data.tracks.items) {
+                    updateSongList(data.tracks.items);
+                } else {
+                    console.error("No tracks found.");
+                }
+            } catch (error) {
+                console.error("Error fetching songs:", error);
+            }
+        }
+
+        // Update the song list UI
+        function updateSongList(songs) {
+            const songList = document.getElementById("song-list");
+            songList.innerHTML = ""; // Clear previous songs
+
+            songs.forEach((song) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${song.name} by ${song.artists
+                    .map((artist) => artist.name)
+                    .join(", ")}`;
+                songList.appendChild(listItem);
+            });
+        }
+
+        // Event listener for search button
+        document.getElementById("search-button").addEventListener("click", () => {
+            const mood = document.getElementById("mood-input").value.trim();
+            if (mood) {
+                fetchSongs(mood);
+            } else {
+                alert("No mood detected. Please start the camera.");
+            }
+        });
+
+
+        // Update the song list UI
+        function updateSongList(songs) {
+            songList.innerHTML = ""; // Clear previous songs
+            songs.forEach(song => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${song.name} by ${song.artists.map(artist => artist.name).join(", ")}`;
+                songList.appendChild(listItem);
+            });
+        }
+
+        // Event listener for search button
+        searchButton.addEventListener("click", () => {
+            const mood = moodInput.value.trim();
+            if (mood) {
+                fetchSongs(mood);
+            } else {
+                alert("No mood detected. Please start the camera.");
+            }
+        });
+    </script>
+</body>
+
+</html>

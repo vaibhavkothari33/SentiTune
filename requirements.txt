@@ -3,3 +3,8 @@ numpy==1.26.3
 scikit-learn==1.4.0
 mediapipe==1.26.3
 spotipy
+uvicorn
+uvicorn[standard]
+websockets
+fastapi
+pillow
