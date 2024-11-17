@@ -18,7 +18,7 @@ def rename_files_in_directory(base_dir):
                     # Get the file extension
                     _, file_extension = os.path.splitext(filename)
                     # Create the new file name
-                    new_filename = f"img{i}{file_extension}"
+                    new_filename = f"image{i}{file_extension}"
                     new_file_path = os.path.join(subfolder_path, new_filename)
 
                     # Rename the file

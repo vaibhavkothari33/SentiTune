@@ -4,7 +4,8 @@ import numpy as np
 from utils import get_face_landmarks
 # import concurrent.futures
 # data directory
-data_dir = './Newdata'
+# data_dir = './Newdata'
+data_dir = './AugmentedData'
 
 print("Current Working Directory:", os.getcwd())
 print(os.path.abspath(data_dir))
@@ -45,7 +46,7 @@ def process_batch(batch, output_file):
     np.savetxt(output_file, np.asarray(output))
 
 # Process each batch and save to separate files
-process_batch(all_images, 'data1_part.txt') #1
+process_batch(all_images, 'data6_part.txt') #1
 
 print("Data saved in 3 files: data_part1.txt, data_part2.txt, data_part3.txt")
 
