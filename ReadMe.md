@@ -10,7 +10,7 @@ The main goal of SentiTune is to recommend songs based on the detected mood of t
 ![Confusion Matrix](model/Images/confusionMatrix.png)
 ![Happy demo](model/Images/happy.png)
 ![Angry Demo](model/Images/angry.png)
-![Angry Demo](model/Images/fearful.png)
+![Calm Demo](model/Images/calm.png)
 ![No face](model/Images/noface.png)
 ## Tech Stack
 
@@ -47,11 +47,10 @@ Frontend: Open index.html in your browser to load the interface.
 
 ## AI Model
 
-Our AI model currently achieves **89% accuracy** in mood prediction. It supports the following mood categories:
+Our AI model currently achieves **91.67% accuracy** in mood prediction. It supports the following mood categories:
 
 - **Happy**
 - **Sad**
-- **Energetic**
 - **Angry**
 - **Calm**
 
