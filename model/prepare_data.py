@@ -48,5 +48,5 @@ def process_batch(batch, output_file):
 # Process each batch and save to separate files
 process_batch(all_images, 'data6_part.txt') #1
 
-print("Data saved in 3 files: data_part1.txt, data_part2.txt, data_part3.txt")
+print("Data saved")
 
